@@ -1,0 +1,9 @@
+sudo: required
+
+language: elixir
+
+services:
+  - docker
+
+elixir:
+  - 1.4
