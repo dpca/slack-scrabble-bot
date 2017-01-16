@@ -7,3 +7,5 @@ services:
 
 elixir:
   - 1.4
+
+script: mix test --no-start
