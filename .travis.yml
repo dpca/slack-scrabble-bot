@@ -9,3 +9,10 @@ elixir:
   - 1.4
 
 script: mix test --no-start
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+    docker build -t dpca/slack-scrabble-bot .;
+    docker push dpca/slack-scrabble-bot;
+    fi
