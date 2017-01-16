@@ -2,12 +2,14 @@ defmodule ScrabbleBot.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :scrabble_bot,
-     version: "0.1.0",
-     elixir: "~> 1.4",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps()]
+    [
+      app: :scrabble_bot,
+      version: "0.1.0",
+      elixir: "~> 1.4",
+      build_embedded: Mix.env == :prod,
+      start_permanent: Mix.env == :prod,
+      deps: deps()
+    ]
   end
 
   # Configuration for the OTP application
@@ -29,6 +31,9 @@ defmodule ScrabbleBot.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:slack, "~> 0.9.2"}]
+    [
+      {:slack, "~> 0.9.2"},
+      {:credo, "~> 0.5", only: [:dev, :test]}
+    ]
   end
 end
