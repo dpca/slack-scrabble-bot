@@ -13,9 +13,9 @@ defmodule ScrabbleBot.Slack do
   def handle_event(message = %{type: "message"}, slack, state) do
     case ScrabbleBot.tally(message.text) do
       x when x == 1 ->
-        send_message("Woohoo! You scored #{x} point!", message.channel, slack)
+        send_message("WOOHOO! YOU SCORED #{x} POINT!", message.channel, slack)
       x when x > 1 ->
-        send_message("Woohoo! You scored #{x} points!", message.channel, slack)
+        send_message("WOOHOO! YOU SCORED #{x} POINTS!", message.channel, slack)
       _ ->
         IO.puts "Got message '#{message.text}', no points"
     end
