@@ -1,0 +1,9 @@
+{
+  "apps": [{
+    "name": "scrabble-bot",
+    "script": "dist/app.js",
+    "env": {
+      "production": true
+    }
+  }]
+}

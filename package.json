@@ -1,0 +1,22 @@
+{
+  "name": "scrabble-bot",
+  "version": "0.0.1",
+  "description": "Tallies scrabble scores in Slack",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "Dan Cahoon",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@slack/rtm-api": "^6.0.0",
+    "dotenv": "^16.0.3",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.192",
+    "typescript": "^5.0.2"
+  },
+  "packageManager": "yarn@3.5.0"
+}
