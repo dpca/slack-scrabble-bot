@@ -65,9 +65,9 @@ rtm.on('message', ({ user, channel, text }) => {
     if (matches.length > 0) {
       const points = matches.reduce((sum, letter) => sum + calculatePoints(letter), 0);
       if (points === 1) {
-        sendResponse(`WOOHOO! YOU SCORED ${points} POINT!`, channel)
+        sendResponse(channel, `WOOHOO! YOU SCORED ${points} POINT!`)
       } else if (points > 1) {
-        sendResponse(`WOOHOO! YOU SCORED ${points} POINTS!`, channel)
+        sendResponse(channel, `WOOHOO! YOU SCORED ${points} POINTS!`)
       }
     }
   }
