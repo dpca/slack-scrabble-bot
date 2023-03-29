@@ -1,10 +1,20 @@
-FROM elixir:1.4
+FROM node:18-alpine
 
-RUN mkdir -p /app
-COPY . /app
-WORKDIR /app
-RUN mix local.rebar --force
-RUN mix local.hex --force
-RUN mix do deps.get, compile
+RUN npm install -g -s pm2
 
-CMD ["mix", "run", "--no-halt"]
+ENV APP_HOME /app
+RUN mkdir -p $APP_HOME
+WORKDIR $APP_HOME
+
+COPY tsconfig.json $APP_HOME
+COPY package.json $APP_HOME
+COPY yarn.lock $APP_HOME
+RUN yarn install
+
+COPY pm2.json $APP_HOME
+COPY src $APP_HOME/src
+RUN yarn build
+
+ENV NPM_CONFIG_LOGLEVEL warn
+
+CMD ["pm2-docker", "start", "pm2.json"]
