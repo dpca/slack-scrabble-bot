@@ -7,6 +7,7 @@ import { RTMClient } from '@slack/rtm-api';
 
 const slackToken = process.env.SLACK_TOKEN;
 const slackChannels = process.env.SLACK_CHANNELS.split(',');
+const emojiChannels = process.env.EMOJI_CHANNELS.split(',');
 
 const rtm = new RTMClient(slackToken);
 
@@ -49,6 +50,19 @@ const pointValues = {
   z: 10,
 };
 
+const numberToEmoji = {
+  1: ':one:',
+  2: ':two:',
+  3: ':three:',
+  4: ':four:',
+  5: ':five:',
+  6: ':six:',
+  7: ':seven:',
+  8: ':eight:',
+  9: ':nine:',
+  0: ':zero:',
+};
+
 function calculatePoints(letter) {
   return pointValues[letter] || 0;
 }
@@ -59,12 +73,17 @@ rtm.on('message', ({ user, channel, text }) => {
   }
 
   // Only respond in the specified channel
-  if (slackChannels.includes(channel)) {
+  if (slackChannels.includes(channel) || emojiChannels.includes(channel)) {
     console.log(`Received: ${channel} <@${user}> ${text}`);
     const matches = scanForMatches(text);
     if (matches.length > 0) {
       const points = matches.reduce((sum, letter) => sum + calculatePoints(letter), 0);
-      if (points === 1) {
+      if (emojiChannels.includes(channel)) {
+        sendResponse(
+          channel,
+          `:woohoo: :you-made-this: ${String(points).split("").map((n) => numberToEmoji[n]).join("")}`
+        );
+      } else if (points === 1) {
         sendResponse(channel, `WOOHOO! YOU SCORED ${points} POINT!`)
       } else if (points > 1) {
         sendResponse(channel, `WOOHOO! YOU SCORED ${points} POINTS!`)
